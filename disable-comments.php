@@ -97,4 +97,23 @@ function disable_comment_reply_script() {
 }
 add_action('wp_enqueue_scripts', 'disable_comment_reply_script');
 
+// Remove discussion settings fields (from Simply Disable Comments)
+function disable_discussion_settings_fields() {
+    add_filter('pre_option_default_ping_status', '__return_zero');
+    add_filter('pre_option_default_comment_status', '__return_zero');
+    add_action('admin_menu', function() {
+        remove_meta_box('commentstatusdiv', 'post', 'normal');
+        remove_meta_box('commentstatusdiv', 'page', 'normal');
+        remove_meta_box('trackbacksdiv', 'post', 'normal');
+    });
+}
+add_action('admin_init', 'disable_discussion_settings_fields');
+
+// Remove comment feed links from the header (from Simply Disable Comments)
+function disable_comment_feed_links() {
+    remove_action('wp_head', 'feed_links_extra', 3);
+}
+add_action('wp_head', 'disable_comment_feed_links', 1);
+
 // Ref: ChatGPT
+// Ref: https://github.com/HandyPlugins/simply-disable-comments/
