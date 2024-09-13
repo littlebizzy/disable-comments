@@ -110,6 +110,7 @@ function disable_discussion_settings_fields() {
     add_filter( 'pre_option_default_ping_status', '__return_zero' );
     add_filter( 'pre_option_default_comment_status', '__return_zero' );
 }
+add_action( 'admin_init', 'disable_discussion_settings_fields' );
 
 // Remove meta boxes from all post types
 function disable_meta_boxes() {
@@ -121,8 +122,6 @@ function disable_meta_boxes() {
         remove_meta_box( 'commentsdiv', $post_type, 'normal' );      // Removes the "Comments" section from the editor
     }
 }
-
-add_action( 'admin_init', 'disable_discussion_settings_fields' );
 add_action( 'admin_menu', 'disable_meta_boxes' );
 
 // Remove comment feed links from the header
