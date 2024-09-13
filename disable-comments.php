@@ -77,4 +77,24 @@ function disable_comments_admin_bar() {
 }
 add_action('init', 'disable_comments_admin_bar');
 
+// Remove X-Pingback header to prevent trackbacks
+add_filter('wp_headers', function($headers) {
+    unset($headers['X-Pingback']);
+    return $headers;
+});
+
+// Disable comment feed
+function disable_comment_feed() {
+    if (is_comment_feed()) {
+        wp_die(__('Comments are closed.', 'disable-comments'));
+    }
+}
+add_action('template_redirect', 'disable_comment_feed');
+
+// Remove comment reply script
+function disable_comment_reply_script() {
+    wp_deregister_script('comment-reply');
+}
+add_action('wp_enqueue_scripts', 'disable_comment_reply_script');
+
 // Ref: ChatGPT
