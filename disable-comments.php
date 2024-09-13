@@ -48,25 +48,25 @@ function disable_existing_comments( $comments ) {
 
 add_filter( 'comments_array', 'disable_existing_comments', 20, 2 );
 
-// Remove comments page in menu for non-admin users
+// Remove comments page from menu and redirect non-admin users trying to access it
 function disable_comments_admin_menu() {
+    // If the user is not an admin
     if ( ! current_user_can( 'manage_options' ) ) {
+        // Remove comments page from menu
         remove_menu_page( 'edit-comments.php' );
+        
+        // Redirect non-admin users who try to access the comments page
+        global $pagenow;
+        if ( $pagenow === 'edit-comments.php' ) {
+            wp_safe_redirect( admin_url() );
+            exit;
+        }
     }
 }
 
+// Hook the function to both 'admin_menu' and 'admin_init'
 add_action( 'admin_menu', 'disable_comments_admin_menu' );
-
-// Redirect non-admin users trying to access the comments page
-function disable_comments_admin_menu_redirect() {
-    global $pagenow;
-
-    if ( $pagenow === 'edit-comments.php' && ! current_user_can( 'manage_options' ) ) {
-        wp_safe_redirect( admin_url() );
-        exit;
-    }
-}
-add_action( 'admin_init', 'disable_comments_admin_menu_redirect' );
+add_action( 'admin_init', 'disable_comments_admin_menu' );
 
 // Remove comments metabox from dashboard for non-admin users
 function disable_comments_dashboard() {
