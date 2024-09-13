@@ -38,7 +38,6 @@ add_action( 'admin_init', 'disable_comments_post_types_support' );
 function disable_comments_status() {
     return false;
 }
-
 add_filter( 'comments_open', 'disable_comments_status', 20, 2 );
 add_filter( 'pings_open', 'disable_comments_status', 20, 2 );
 
@@ -46,7 +45,6 @@ add_filter( 'pings_open', 'disable_comments_status', 20, 2 );
 function disable_existing_comments( $comments ) {
     return array();
 }
-
 add_filter( 'comments_array', 'disable_existing_comments', 20, 2 );
 
 // Remove comments page from menu and redirect non-admin users trying to access it (including Super Admins in Multisite)
@@ -55,7 +53,7 @@ function disable_comments_admin_menu() {
     if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_network_options' ) ) {
         // Remove comments page from menu
         remove_menu_page( 'edit-comments.php' );
-        
+
         // Redirect non-admin users who try to access the comments page directly
         global $pagenow;
         if ( $pagenow === 'edit-comments.php' ) {
@@ -64,24 +62,22 @@ function disable_comments_admin_menu() {
         }
     }
 }
-
-// Hook the function to both 'admin_menu' and 'admin_init'
 add_action( 'admin_menu', 'disable_comments_admin_menu' );
 add_action( 'admin_init', 'disable_comments_admin_menu' );
 
-// Remove comments metabox from dashboard for non-admin users
-function disable_comments_dashboard() {
+// Remove the Recent Comments section from the Activity widget for non-admin users
+function disable_recent_comments_from_activity_widget() {
     if ( ! current_user_can( 'manage_options' ) ) {
-        remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
+        // Use a filter to prevent comments from showing in the Activity widget
+        add_filter( 'the_comments', '__return_empty_array', 10, 1 );
     }
 }
-add_action( 'admin_init', 'disable_comments_dashboard' );
+add_action( 'load-index.php', 'disable_recent_comments_from_activity_widget' );
 
 // Remove comments links from admin bar
 function disable_comments_admin_bar( $wp_admin_bar ) {
     $wp_admin_bar->remove_node( 'comments' );
 }
-
 add_action( 'admin_bar_menu', 'disable_comments_admin_bar', 999 );
 
 // Remove X-Pingback header to prevent trackbacks
@@ -132,3 +128,4 @@ add_action( 'wp_head', 'disable_comment_feed_links', 1 );
 
 // Ref: ChatGPT
 // Ref: https://github.com/HandyPlugins/simply-disable-comments/
+// Ref: https://wordpress.stackexchange.com/questions/213712/admin-dashboard-unset-recent-comments
