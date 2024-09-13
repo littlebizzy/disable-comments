@@ -47,10 +47,10 @@ function disable_existing_comments( $comments ) {
 }
 add_filter( 'comments_array', 'disable_existing_comments', 20, 2 );
 
-// Remove comments page from menu and redirect non-admin users trying to access it (including Super Admins in Multisite)
+// Remove comments page from menu and redirect non-admin users trying to access it
 function disable_comments_admin_menu() {
-    // If the user is neither an admin nor a super admin in multisite
-    if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_network_options' ) ) {
+    // If the user is neither an admin nor a super admin
+    if ( ! current_user_can( 'manage_options' ) ) {
         // Remove comments page from menu
         remove_menu_page( 'edit-comments.php' );
 
