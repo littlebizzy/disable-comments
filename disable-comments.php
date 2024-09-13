@@ -22,15 +22,13 @@ add_filter( 'gu_override_dot_org', function( $overrides ) {
     return $overrides;
 });
 
-// Disable support for comments and trackbacks in post types
+// Disable support for comments and trackbacks in all post types
 function disable_comments_post_types_support() {
     $post_types = get_post_types();
-    
+
     foreach ( $post_types as $post_type ) {
-        if ( post_type_supports( $post_type, 'comments' ) ) {
-            remove_post_type_support( $post_type, 'comments' );
-            remove_post_type_support( $post_type, 'trackbacks' );
-        }
+        remove_post_type_support( $post_type, 'comments' );
+        remove_post_type_support( $post_type, 'trackbacks' );
     }
 }
 add_action( 'admin_init', 'disable_comments_post_types_support' );
