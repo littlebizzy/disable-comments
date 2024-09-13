@@ -6,6 +6,7 @@ Disables comments without database
 
 ### 1.0.0
 - initial release
+- supports Git Updater
 - follows WordPress coding standards
 - no database involvement
 - disables all comments, pingbacks, trackbacks on all pages and post types
