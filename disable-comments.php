@@ -78,10 +78,11 @@ function disable_comments_dashboard() {
 add_action( 'admin_init', 'disable_comments_dashboard' );
 
 // Remove comments links from admin bar
-function disable_comments_admin_bar() {
-    remove_action( 'admin_bar_menu', 'wp_admin_bar_comments_menu', 60 );
+function disable_comments_admin_bar( $wp_admin_bar ) {
+    $wp_admin_bar->remove_node( 'comments' );
 }
-add_action( 'init', 'disable_comments_admin_bar' );
+
+add_action( 'admin_bar_menu', 'disable_comments_admin_bar', 999 );
 
 // Remove X-Pingback header to prevent trackbacks
 function disable_pingback_header( $headers ) {
