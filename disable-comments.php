@@ -115,8 +115,9 @@ function disable_meta_boxes() {
     $post_types = get_post_types();
 
     foreach ( $post_types as $post_type ) {
-        remove_meta_box( 'commentstatusdiv', $post_type, 'normal' );
-        remove_meta_box( 'trackbacksdiv', $post_type, 'normal' );
+        remove_meta_box( 'commentstatusdiv', $post_type, 'normal' ); // Removes the "Allow comments" checkbox
+        remove_meta_box( 'trackbacksdiv', $post_type, 'normal' );    // Removes the "Allow trackbacks" checkbox
+        remove_meta_box( 'commentsdiv', $post_type, 'normal' );      // Removes the "Comments" section from the editor
     }
 }
 
