@@ -1,3 +1,4 @@
+<?php
 /*
 Plugin Name: Disable Comments
 Plugin URI: https://www.littlebizzy.com/plugins/disable-comments
