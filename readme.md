@@ -4,6 +4,9 @@ Disables comments without database
 
 ## Changelog
 
+### 1.0.1
+- tweak `gu_override_dot_org` snippet
+
 ### 1.0.0
 - initial release
 - supports Git Updater
