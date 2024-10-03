@@ -3,7 +3,7 @@
 Plugin Name: Disable Comments
 Plugin URI: https://www.littlebizzy.com/plugins/disable-comments
 Description: Disables comments without database
-Version: 1.0.0
+Version: 1.0.1
 Author: LittleBizzy
 Author URI: https://www.littlebizzy.com
 License: GPLv3
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_filter( 'gu_override_dot_org', function( $overrides ) {
     $overrides[] = 'disable-comments/disable-comments.php';
     return $overrides;
-});
+}, 999 );
 
 // Disable support for comments and trackbacks in all post types
 function disable_comments_post_types_support() {
