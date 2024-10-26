@@ -4,6 +4,9 @@ Disables comments without database
 
 ## Changelog
 
+### 1.0.2
+- added `Requires PHP` plugin header
+
 ### 1.0.1
 - tweak `gu_override_dot_org` snippet
 
