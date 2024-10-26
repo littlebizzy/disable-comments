@@ -3,21 +3,22 @@
 Plugin Name: Disable Comments
 Plugin URI: https://www.littlebizzy.com/plugins/disable-comments
 Description: Disables comments without database
-Version: 1.0.1
+Version: 1.0.2
+Requires PHP: 7.0
 Author: LittleBizzy
 Author URI: https://www.littlebizzy.com
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
-GitHub Plugin URI: https://github.com/littlebizzy/disable-comments
+GitHub Plugin URI: littlebizzy/disable-comments
 Primary Branch: master
 */
 
-// Prevent direct access
+// prevent direct access
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Disable WordPress.org updates for this plugin
+// disable wordpress.org updates for this plugin
 add_filter( 'gu_override_dot_org', function( $overrides ) {
     $overrides[] = 'disable-comments/disable-comments.php';
     return $overrides;
